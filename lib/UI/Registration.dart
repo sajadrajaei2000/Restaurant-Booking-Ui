@@ -1,5 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:project5/UI_helper/RegistrationState.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -9,6 +13,8 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  RegistrationState registrationState = RegistrationState();
+  ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -48,7 +54,29 @@ class _RegistrationState extends State<Registration> {
               width: 256,
               height: 49,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showStickyFlexibleBottomSheet(
+                      minHeight: 0,
+                      initHeight: 0.75,
+                      maxHeight: 1,
+                      headerHeight: height,
+                      isSafeArea: true,
+                      bottomSheetColor:
+                          const Color.fromARGB(202, 120, 113, 113),
+                      context: context,
+                      headerBuilder: (BuildContext context, double offset) {
+                        return registrationState.bottomSheetDesign(height);
+                      },
+                      bodyBuilder: (BuildContext context, double offset) {
+                        return SliverChildListDelegate(
+                          <Widget>[
+                            // Your content widgets here
+                          ],
+                        );
+                      },
+                      anchors: [0, 0.5, 1],
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -68,7 +96,29 @@ class _RegistrationState extends State<Registration> {
               width: 256,
               height: 49,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showStickyFlexibleBottomSheet(
+                      minHeight: 0,
+                      initHeight: 0.75,
+                      maxHeight: 1,
+                      headerHeight: height,
+                      isSafeArea: true,
+                      bottomSheetColor:
+                          const Color.fromARGB(202, 120, 113, 113),
+                      context: context,
+                      headerBuilder: (BuildContext context, double offset) {
+                        return registrationState.bottomSheetDesign(height);
+                      },
+                      bodyBuilder: (BuildContext context, double offset) {
+                        return SliverChildListDelegate(
+                          <Widget>[
+                            // Your content widgets here
+                          ],
+                        );
+                      },
+                      anchors: [0, 0.5, 1],
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12))),
