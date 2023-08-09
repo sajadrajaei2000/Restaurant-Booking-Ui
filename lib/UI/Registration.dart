@@ -65,7 +65,7 @@ class _RegistrationState extends State<Registration> {
                           const Color.fromARGB(202, 120, 113, 113),
                       context: context,
                       headerBuilder: (BuildContext context, double offset) {
-                        return registrationState.bottomSheetDesign(height);
+                        return RegistrationState();
                       },
                       bodyBuilder: (BuildContext context, double offset) {
                         return SliverChildListDelegate(
@@ -107,7 +107,7 @@ class _RegistrationState extends State<Registration> {
                           const Color.fromARGB(202, 120, 113, 113),
                       context: context,
                       headerBuilder: (BuildContext context, double offset) {
-                        return registrationState.bottomSheetDesign(height);
+                        return RegistrationState();
                       },
                       bodyBuilder: (BuildContext context, double offset) {
                         return SliverChildListDelegate(
