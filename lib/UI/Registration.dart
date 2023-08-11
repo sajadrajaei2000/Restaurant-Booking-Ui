@@ -13,7 +13,9 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  RegistrationState registrationState = RegistrationState();
+  late bool isOption1Selected; // Set this based on your logic
+  late bool isOption2Selected;
+  //RegistrationState registrationState = RegistrationState(isOption1Selected:,);
   ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,10 @@ class _RegistrationState extends State<Registration> {
               height: 49,
               child: ElevatedButton(
                   onPressed: () {
+                    setState(() {
+                      isOption1Selected = true;
+                      isOption2Selected = false;
+                    });
                     showStickyFlexibleBottomSheet(
                       minHeight: 0,
                       initHeight: 0.75,
@@ -65,7 +71,10 @@ class _RegistrationState extends State<Registration> {
                           const Color.fromARGB(202, 120, 113, 113),
                       context: context,
                       headerBuilder: (BuildContext context, double offset) {
-                        return RegistrationState();
+                        return RegistrationState(
+                          isOption1Selected: isOption1Selected,
+                          isOption2Selected: isOption2Selected,
+                        );
                       },
                       bodyBuilder: (BuildContext context, double offset) {
                         return SliverChildListDelegate(
@@ -97,6 +106,10 @@ class _RegistrationState extends State<Registration> {
               height: 49,
               child: ElevatedButton(
                   onPressed: () {
+                    setState(() {
+                      isOption1Selected = false;
+                      isOption2Selected = true;
+                    });
                     showStickyFlexibleBottomSheet(
                       minHeight: 0,
                       initHeight: 0.75,
@@ -107,7 +120,10 @@ class _RegistrationState extends State<Registration> {
                           const Color.fromARGB(202, 120, 113, 113),
                       context: context,
                       headerBuilder: (BuildContext context, double offset) {
-                        return RegistrationState();
+                        return RegistrationState(
+                          isOption1Selected: isOption1Selected,
+                          isOption2Selected: isOption2Selected,
+                        );
                       },
                       bodyBuilder: (BuildContext context, double offset) {
                         return SliverChildListDelegate(

@@ -1,17 +1,27 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, equal_elements_in_set, library_private_types_in_public_api, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RegistrationState extends StatefulWidget {
+  late bool isOption1Selected;
+  late bool isOption2Selected;
+
+  RegistrationState({
+    super.key,
+    required this.isOption1Selected,
+    required this.isOption2Selected,
+  });
+
   @override
   _RegistrationState createState() => _RegistrationState();
 }
 
 class _RegistrationState extends State<RegistrationState> {
-  bool isOption1Selected = true; // Set this based on your logic
-  bool isOption2Selected = false;
-  final _keyForm = GlobalKey<FormState>();
+  //  bool isOption1Selected = true; // Set this based on your logic
+  //  bool isOption2Selected = false;
+  //RegistrationState _registrationState=RegistrationState(isOption1Selected:isOption1Selected, isOption2Selected: isOption2Selected);
+  //final _keyForm = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -54,8 +64,8 @@ class _RegistrationState extends State<RegistrationState> {
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        isOption1Selected = true;
-                        isOption2Selected = false;
+                        widget.isOption1Selected = true;
+                        widget.isOption2Selected = false;
                       });
 
                       // Handle option 1
@@ -67,7 +77,7 @@ class _RegistrationState extends State<RegistrationState> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: isOption1Selected
+                            color: widget.isOption1Selected
                                 ? const Color(0xFF32B768)
                                 : const Color(0xFF89909E),
                           ),
@@ -78,7 +88,7 @@ class _RegistrationState extends State<RegistrationState> {
                           child: Container(
                               height: 2,
                               width: 28,
-                              color: isOption1Selected
+                              color: widget.isOption1Selected
                                   ? const Color(0xFF32B768)
                                   : Colors.white),
                         ),
@@ -89,8 +99,8 @@ class _RegistrationState extends State<RegistrationState> {
                     onPressed: () {
                       // Handle option 2
                       setState(() {
-                        isOption1Selected = false;
-                        isOption2Selected = true;
+                        widget.isOption1Selected = false;
+                        widget.isOption2Selected = true;
                       });
                     },
                     child: Column(
@@ -101,7 +111,7 @@ class _RegistrationState extends State<RegistrationState> {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: isOption2Selected
+                            color: widget.isOption2Selected
                                 ? const Color(0xFF32B768)
                                 : const Color(0xFF89909E),
                           ),
@@ -111,7 +121,7 @@ class _RegistrationState extends State<RegistrationState> {
                           child: Container(
                               height: 2,
                               width: 28,
-                              color: isOption2Selected
+                              color: widget.isOption2Selected
                                   ? const Color(0xFF32B768)
                                   : Colors.white),
                         ),
@@ -123,9 +133,10 @@ class _RegistrationState extends State<RegistrationState> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 30),
-              child: showFirstBottomData(isOption1Selected, height, width),
+              child:
+                  showFirstBottomData(widget.isOption1Selected, height, width),
             ),
-            showSecondBottomData(isOption2Selected)
+            showSecondBottomData(widget.isOption2Selected, height, width)
           ],
         ),
       ),
@@ -252,7 +263,7 @@ class _RegistrationState extends State<RegistrationState> {
             ),
           ),
           SizedBox(
-            height: height * 0.06,
+            height: height * 0.05,
           ),
           SizedBox(
             height: 49,
@@ -314,10 +325,161 @@ class _RegistrationState extends State<RegistrationState> {
     }
   }
 
-  Widget showSecondBottomData(bool isOption2Selected) {
+  Widget showSecondBottomData(bool isOption2Selected, height, width) {
     if (isOption2Selected == true) {
-      return const Column(
-        children: [Text('hi'), Text('hihihihiih')],
+      return Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 50),
+            child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Email address',
+                  style: TextStyle(
+                      color: Color(0xFF374151),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: SizedBox(
+              width: width * 0.82,
+              height: 48,
+              child: TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  hintText: 'Eg namaemail@emailkamu.com',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                ),
+                // The validator receives the text that the user has entered.
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter gmail';
+                  } else if (!value.endsWith('@gmail.com')) {
+                    return 'please enter valid gmail';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 50, top: 8),
+            child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Password',
+                  style: TextStyle(
+                      color: Color(0xFF374151),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                )),
+          ),
+          SizedBox(
+            height: height * 0.01,
+          ),
+          SizedBox(
+            height: 48,
+            width: width * 0.82,
+            child: TextFormField(
+              controller: passwordController,
+              decoration: const InputDecoration(
+                hintText: '**** **** ****',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+              ),
+              // The validator receives the text that the user has entered.
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                } else if (value.length < 7) {
+                  return 'at least enter 6 characters';
+                } else if (value.length > 13) {
+                  return 'maximum character is 13';
+                }
+                return null;
+              },
+            ),
+          ),
+          SizedBox(
+            height: height * 0.01,
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+                padding: const EdgeInsets.only(right: 38),
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Forget Password?',
+                    style: TextStyle(
+                        color: Color(0xFF32B768),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                )),
+          ),
+          SizedBox(
+            height: height * 0.05,
+          ),
+          SizedBox(
+            height: 49,
+            width: 256,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFF4F4F4),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)))),
+                onPressed: () {},
+                child: const Text(
+                  'Registration',
+                  style: TextStyle(
+                      color: Color(0xFF9CA3AF),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700),
+                )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Container(
+              width: width * 0.3,
+              height: 0.1,
+              color: Colors.black,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: SizedBox(
+              height: 49,
+              width: 256,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFF4F4F4),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)))),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/ic_google.svg'),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 30),
+                        child: Text(
+                          'Sign up with Google',
+                          style: TextStyle(
+                              color: Color(0xFF222222),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
+        ],
       );
     } else {
       return Container();
